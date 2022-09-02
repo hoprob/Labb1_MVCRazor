@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Customer>
+
+<h2>Alla kunder</h2>
+<table class="table table-striped">
+    <thead >
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Förnamn</th>
+            <th scope="col">Efternamn</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Stad</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int count = 1;}
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <th scope="row">@count</th>
+                <td>@customer.CustomerFirstName</td>
+                <td>@customer.CustomerLastName</td>
+                <td>@customer.Address</td>
+                <td>@customer.ZipCode, @customer.City</td>
+                <td><a asp-controller="Admin" asp-action="CustomerPage" asp-route-id="@customer.CustomerId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a></td>
+            </tr>
+            count++;
+        }
+    </tbody>
+</table>
