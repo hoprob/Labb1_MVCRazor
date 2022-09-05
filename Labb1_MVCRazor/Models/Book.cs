@@ -2,6 +2,7 @@
 
 namespace Labb1_MVCRazor.Models
 {
+    //TODO Check Placeholder when rendering books
     public class Book
     {
         [Key]

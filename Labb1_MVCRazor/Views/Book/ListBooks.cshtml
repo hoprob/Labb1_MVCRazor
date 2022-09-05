@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Book>
-<div class="row">
-    @foreach (var book in Model)
-    {
-        <partial name="Components/_bookCard" model="book"/>
-    }
+<div class="col-md-8 offset-md-2">
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <partial name="./Components/_bookCard" model="book" />
+        }
+    </div>
 </div>

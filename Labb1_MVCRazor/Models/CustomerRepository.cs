@@ -23,17 +23,20 @@ namespace Labb1_MVCRazor.Models
 
         public Customer EditCustomer(Customer customer)
         {
-            var customerToUpdate = GetCustomerById(customer.CustomerId);
-            customerToUpdate.CustomerFirstName = customer.CustomerFirstName;//TODO this doesnt work..........
-            customerToUpdate.CustomerLastName = customer.CustomerLastName;
-            customerToUpdate.Address = customer.Address;
-            customerToUpdate.CustomerEmail = customer.CustomerEmail;
-            customerToUpdate.City = customer.City;
-            customerToUpdate.Phone = customer.Phone;
-            customerToUpdate.ZipCode = customer.ZipCode;
+            //TODO If update function is ok, remove the commented parts....
+            //customerToUpdate.CustomerFirstName = customer.CustomerFirstName; 
+            //var customerToUpdate = GetCustomerById(customer.CustomerId);
+            //customerToUpdate.CustomerLastName = customer.CustomerLastName;
+            //customerToUpdate.Address = customer.Address;
+            //customerToUpdate.CustomerEmail = customer.CustomerEmail;
+            //customerToUpdate.City = customer.City;
+            //customerToUpdate.Phone = customer.Phone;
+            //customerToUpdate.ZipCode = customer.ZipCode;
+            _appDbContext.Update(customer);
             
             _appDbContext.SaveChanges();
-            return customerToUpdate;
+            //return customerToUpdate;
+            return customer;
         }
 
         public IEnumerable<BookLoan> GetBookLoans(Customer customer)
