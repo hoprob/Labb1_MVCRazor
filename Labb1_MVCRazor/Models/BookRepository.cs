@@ -1,4 +1,8 @@
-﻿namespace Labb1_MVCRazor.Models
+﻿
+
+using Microsoft.EntityFrameworkCore;
+
+namespace Labb1_MVCRazor.Models
 {
     public class BookRepository : IBookRepository
     {
@@ -17,14 +21,21 @@
             return newBook;
         }
 
-        public Book EditBook(Book book, Book newData)
+        public Book EditBook(Book book)
         {
-            throw new NotImplementedException();
+            _appDbcontext.Books.Update(book);
+            _appDbcontext.SaveChanges();
+            return book;
         }
 
         public Book GetBookById(int id)
         {
-            return _appDbcontext.Books.Find(id);
+            return _appDbcontext.Books.Include(b => b.BookItems).FirstOrDefault(b => b.BookId == id);
+        }
+
+        public Book GetBookByIsbn(string isbn)
+        {
+            return _appDbcontext.Books.FirstOrDefault(b => b.ISBN == isbn);
         }
 
         public Book RemoveBook(Book book)

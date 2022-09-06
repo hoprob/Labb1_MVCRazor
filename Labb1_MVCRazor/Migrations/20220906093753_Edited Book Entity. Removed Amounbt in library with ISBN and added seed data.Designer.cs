@@ -4,6 +4,7 @@ using Labb1_MVCRazor.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb1_MVCRazor.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220906093753_Edited Book Entity. Removed Amounbt in library with ISBN and added seed data")]
+    partial class EditedBookEntityRemovedAmounbtinlibrarywithISBNandaddedseeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,126 +119,6 @@ namespace Labb1_MVCRazor.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Labb1_MVCRazor.Models.BookItem", b =>
-                {
-                    b.Property<int>("BookItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookItemId"), 1L, 1);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookItemId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookItems");
-
-                    b.HasData(
-                        new
-                        {
-                            BookItemId = 1,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            BookItemId = 2,
-                            BookId = 1
-                        },
-                        new
-                        {
-                            BookItemId = 3,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            BookItemId = 4,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            BookItemId = 5,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            BookItemId = 6,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            BookItemId = 7,
-                            BookId = 2
-                        },
-                        new
-                        {
-                            BookItemId = 8,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            BookItemId = 9,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            BookItemId = 10,
-                            BookId = 3
-                        },
-                        new
-                        {
-                            BookItemId = 11,
-                            BookId = 4
-                        },
-                        new
-                        {
-                            BookItemId = 12,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            BookItemId = 13,
-                            BookId = 5
-                        },
-                        new
-                        {
-                            BookItemId = 14,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            BookItemId = 15,
-                            BookId = 6
-                        },
-                        new
-                        {
-                            BookItemId = 16,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            BookItemId = 17,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            BookItemId = 18,
-                            BookId = 7
-                        },
-                        new
-                        {
-                            BookItemId = 19,
-                            BookId = 8
-                        },
-                        new
-                        {
-                            BookItemId = 20,
-                            BookId = 8
-                        });
-                });
-
             modelBuilder.Entity("Labb1_MVCRazor.Models.BookLoan", b =>
                 {
                     b.Property<int>("BookLoanId")
@@ -245,7 +127,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookLoanId"), 1L, 1);
 
-                    b.Property<int>("BookItemId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
@@ -262,7 +144,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     b.HasKey("BookLoanId");
 
-                    b.HasIndex("BookItemId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("CustomerId");
 
@@ -272,7 +154,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 1,
-                            BookItemId = 1,
+                            BookId = 7,
                             CustomerId = 2,
                             DueDate = new DateTime(2022, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -281,7 +163,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 2,
-                            BookItemId = 18,
+                            BookId = 5,
                             CustomerId = 3,
                             DueDate = new DateTime(2022, 8, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 7, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -290,7 +172,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 3,
-                            BookItemId = 15,
+                            BookId = 6,
                             CustomerId = 1,
                             DueDate = new DateTime(2022, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -299,7 +181,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 4,
-                            BookItemId = 4,
+                            BookId = 3,
                             CustomerId = 4,
                             DueDate = new DateTime(2022, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -308,7 +190,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 5,
-                            BookItemId = 5,
+                            BookId = 2,
                             CustomerId = 2,
                             DueDate = new DateTime(2022, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -317,7 +199,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 6,
-                            BookItemId = 19,
+                            BookId = 6,
                             CustomerId = 5,
                             DueDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -326,7 +208,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 7,
-                            BookItemId = 2,
+                            BookId = 7,
                             CustomerId = 1,
                             DueDate = new DateTime(2022, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2021, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -335,7 +217,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 8,
-                            BookItemId = 16,
+                            BookId = 1,
                             CustomerId = 5,
                             DueDate = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -344,7 +226,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 9,
-                            BookItemId = 11,
+                            BookId = 2,
                             CustomerId = 3,
                             DueDate = new DateTime(2022, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 8, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -353,7 +235,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 10,
-                            BookItemId = 9,
+                            BookId = 4,
                             CustomerId = 4,
                             DueDate = new DateTime(2022, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -362,7 +244,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 11,
-                            BookItemId = 8,
+                            BookId = 1,
                             CustomerId = 2,
                             DueDate = new DateTime(2022, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -371,7 +253,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 12,
-                            BookItemId = 7,
+                            BookId = 7,
                             CustomerId = 5,
                             DueDate = new DateTime(2022, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -380,7 +262,7 @@ namespace Labb1_MVCRazor.Migrations
                         new
                         {
                             BookLoanId = 13,
-                            BookItemId = 3,
+                            BookId = 1,
                             CustomerId = 4,
                             DueDate = new DateTime(2022, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoanDate = new DateTime(2022, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -502,22 +384,11 @@ namespace Labb1_MVCRazor.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Labb1_MVCRazor.Models.BookItem", b =>
-                {
-                    b.HasOne("Labb1_MVCRazor.Models.Book", "Book")
-                        .WithMany("BookItems")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("Labb1_MVCRazor.Models.BookLoan", b =>
                 {
-                    b.HasOne("Labb1_MVCRazor.Models.BookItem", "BookItem")
+                    b.HasOne("Labb1_MVCRazor.Models.Book", "Book")
                         .WithMany("BookLoans")
-                        .HasForeignKey("BookItemId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -527,17 +398,12 @@ namespace Labb1_MVCRazor.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BookItem");
+                    b.Navigation("Book");
 
                     b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Labb1_MVCRazor.Models.Book", b =>
-                {
-                    b.Navigation("BookItems");
-                });
-
-            modelBuilder.Entity("Labb1_MVCRazor.Models.BookItem", b =>
                 {
                     b.Navigation("BookLoans");
                 });

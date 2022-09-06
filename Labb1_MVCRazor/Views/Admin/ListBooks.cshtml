@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Book>
+
+<div class="col-md-8 offset-md-2">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Alla Böcker</h2>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <a asp-controller="Admin" asp-action="AddBook" class="btn btn-success"><i class="fa-solid fa-book-medical"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titel</th>
+                        <th scope="col">Författare</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int count = 1;}
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <th scope="row">@count</th>
+                            <td>@book.BookTitle</td>
+                            <td>@book.BookAuthor</td>
+                            <td>@book.ISBN</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <a asp-controller="Admin" asp-action="AdminBookPage" asp-route-id="@book.BookId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a>
+                                    <a asp-controller="Admin" asp-action="EditBook" asp-route-id="@book.BookId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#"+"confirmModal"+book.ISBN)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="modal fade" tabindex="-1" id="@("confirmModal"+book.ISBN)" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Radera Bok</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Vill du verkligen radera alla exemplar av @book.BookTitle?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ångra</button>
+                                                <a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteBookByIsbn" asp-route-isbn="@book.ISBN">Radera</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

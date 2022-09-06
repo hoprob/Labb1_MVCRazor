@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Ubuntu&display=swap');
+
 html {
   font-size: 14px;
 }
@@ -15,4 +17,34 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.navbar .nav-link {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.1rem;
+}
+
+.navbar .logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 2rem;
+}
+.welcome-text {
+    font-family: 'Ubuntu', sans-serif;
+
+}
+.welcome-text h3{
+    font-size: 3rem;
+    text-decoration: underline;
+}
+
+.welcome-text .logo {
+    font-family: 'Special Elite', cursive;
+}
+
+.welcome-text p{
+    font-size: 1.5rem;
+}
+
+.card .description {
+    max-height: 150px;
 }

@@ -47,13 +47,14 @@ namespace Labb1_MVCRazor.Models
 
         public Customer GetCustomerById(int id)
         {
-            return _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.Book).FirstOrDefault(c => c.CustomerId == id);
+            return _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(c => c.CustomerId == id);
         }
 
         public Customer RemoveCustomer(Customer customer)
         {
             var toRemove = _appDbContext.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
             _appDbContext.Customers.Remove(toRemove);
+            _appDbContext.SaveChanges();
             return toRemove;
         }
     }

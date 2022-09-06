@@ -18,8 +18,8 @@
                 @foreach (var bookLoan in Model.BookLoans)
                 {
                     <tr>
-                        <td>@bookLoan.Book.BookTitle</td>
-                        <td>@bookLoan.Book.BookAuthor</td>
+                        <td>@bookLoan.BookItem.Book.BookTitle</td>
+                        <td>@bookLoan.BookItem.Book.BookAuthor</td>
                         <td>@bookLoan.LoanDate</td>
                         <td>@if(bookLoan.ReturnDate > DateTime.Parse("1900-01-01"))
                             {

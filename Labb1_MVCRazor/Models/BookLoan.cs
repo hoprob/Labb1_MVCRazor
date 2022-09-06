@@ -11,8 +11,8 @@ namespace Labb1_MVCRazor.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         [Required]
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public int BookItemId { get; set; }
+        public BookItem BookItem { get; set; }
         [Required]
         public DateTime LoanDate { get; set; }
         [Required]

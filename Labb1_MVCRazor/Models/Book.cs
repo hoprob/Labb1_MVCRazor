@@ -8,12 +8,12 @@ namespace Labb1_MVCRazor.Models
         [Key]
         public int BookId { get; set; }
         [Required]
+        public string ISBN { get; set; }
+        [Required]
         public string BookTitle { get; set; }
         [Required]
         public string BookAuthor { get; set; }
         public string BookDescription { get; set; }
-        [Required]
-        public int AmountInLibrary { get; set; }
-        public List<BookLoan> BookLoans { get; set; }
+        public List<BookItem> BookItems { get; set; }
     }
 }

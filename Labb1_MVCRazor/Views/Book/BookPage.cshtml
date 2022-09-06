@@ -2,15 +2,16 @@
 @{
     string bookTitle = Model.BookTitle.ToLower().Replace(" ", "-").Replace(":", "") + ".jpg";
 }
-
-<div class="row">
-    <div class="col-md-4 m-3">
-        <img src="~/Images/@bookTitle" alt="Image of book" />
+<div class="col-md-8 offset-md-2">
+    <div class="row">
+        <div class="col-md-4 m-3">
+            <img src="~/Images/@bookTitle" alt="Image of book" />
+        </div>
+        <div class="col-md-6 m-3">
+            <h1>@Model.BookTitle</h1>
+            <h3>@Model.BookAuthor</h3>
+            <p>@Model.BookDescription</p>
+            <a class="btn btn-primary">Låna</a> 
+        </div>  
     </div>
-    <div class="col-md-6 m-3">
-        <h1>@Model.BookTitle</h1>
-        <h3>@Model.BookAuthor</h3>
-        <p>@Model.BookDescription</p>
-        <a class="btn btn-primary">Låna</a> 
-    </div>  
 </div>

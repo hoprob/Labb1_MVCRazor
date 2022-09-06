@@ -1,31 +1,70 @@
 ﻿@model IEnumerable<Customer>
+
 <div class="col-md-8 offset-md-2">
-    <h2>Alla kunder</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Förnamn</th>
-                <th scope="col">Efternamn</th>
-                <th scope="col">Adress</th>
-                <th scope="col">Stad</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{ int count = 1;}
-            @foreach (var customer in Model)
-            {
-                <tr>
-                    <th scope="row">@count</th>
-                    <td>@customer.CustomerFirstName</td>
-                    <td>@customer.CustomerLastName</td>
-                    <td>@customer.Address</td>
-                    <td>@customer.ZipCode, @customer.City</td>
-                    <td><a asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@customer.CustomerId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a></td>
-                </tr>
-                count++;
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Alla kunder</h2>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <a asp-controller="Admin" asp-action="AddCustomer" class="btn btn-success"><i class="fa-solid fa-user-plus"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Förnamn</th>
+                        <th scope="col">Efternamn</th>
+                        <th scope="col">Adress</th>
+                        <th scope="col">Stad</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int count = 1;}
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <th scope="row">@count</th>
+                            <td>@customer.CustomerFirstName</td>
+                            <td>@customer.CustomerLastName</td>
+                            <td>@customer.Address</td>
+                            <td>@customer.ZipCode, @customer.City</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <a asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@customer.CustomerId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a>
+                                    <a asp-controller="Customer" asp-action="EditCustomer" asp-route-id="@customer.CustomerId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="@("#"+"confirmModal"+customer.CustomerId)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <div class="modal fade" tabindex="-1" id="@("confirmModal"+customer.CustomerId)" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Radera Kund</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Vill du verkligen radera kunden @customer.CustomerFirstName @customer.CustomerLastName?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ångra</button>
+                                        <a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteCustomer" asp-route-id="@customer.CustomerId">Radera</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+

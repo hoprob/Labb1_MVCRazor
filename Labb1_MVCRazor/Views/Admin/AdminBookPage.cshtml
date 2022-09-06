@@ -1,0 +1,51 @@
+﻿@model Book
+
+<div class="col-md-8 offset-md-2">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-decoration-underline">@Model.BookTitle</h2>
+                    <label for="author">Författare</label>
+                    <h4 id="author">@Model.BookAuthor</h4>
+                    <label for="isbn">ISBN</label>
+                    <h4 id="isbn">@Model.ISBN</h4>
+                    <label for="description">Beskrivning</label>
+                    <h4 class="overflow-auto description" id="description">@Model.BookDescription</h4>
+                    <label for="amount">Antal i Bibliotek</label>
+                    <h4 id="amount">@Model.BookItems.Count()</h4>
+                </div>
+                <a asp-controller="Admin" asp-action="EditBook" asp-route-id="@Model.BookId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h3>Böcker i bibliteket</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class=" table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bookItem in Model.BookItems)
+                            {
+                                <tr>
+                                    <td>@bookItem.BookItemId</td>                               
+                                    <td>Utlånad/Tillgänglig?</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
