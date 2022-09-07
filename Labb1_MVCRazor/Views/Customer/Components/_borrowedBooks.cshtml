@@ -20,7 +20,7 @@
                     <tr>
                         <td>@bookLoan.BookItem.Book.BookTitle</td>
                         <td>@bookLoan.BookItem.Book.BookAuthor</td>
-                        <td>@bookLoan.LoanDate</td>
+                        <td>@bookLoan.LoanDate.ToString("yyyy-MM-dd")</td>
                         <td>@if(bookLoan.ReturnDate > DateTime.Parse("1900-01-01"))
                             {
                                 <span class="badge bg-success">Återlämnad</span>

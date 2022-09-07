@@ -1,28 +1,58 @@
-﻿@model Book
+﻿@model AdminBookIPageViewModel
 
 <div class="col-md-8 offset-md-2">
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-decoration-underline">@Model.BookTitle</h2>
+                    <h2 class="card-title text-decoration-underline">@Model.Book.BookTitle</h2>
                     <label for="author">Författare</label>
-                    <h4 id="author">@Model.BookAuthor</h4>
+                    <h4 id="author">@Model.Book.BookAuthor</h4>
                     <label for="isbn">ISBN</label>
-                    <h4 id="isbn">@Model.ISBN</h4>
+                    <h4 id="isbn">@Model.Book.ISBN</h4>
                     <label for="description">Beskrivning</label>
-                    <h4 class="overflow-auto description" id="description">@Model.BookDescription</h4>
+                    <h4 class="overflow-auto description" id="description">@Model.Book.BookDescription</h4>
                     <label for="amount">Antal i Bibliotek</label>
                     <h4 id="amount">@Model.BookItems.Count()</h4>
                 </div>
-                <a asp-controller="Admin" asp-action="EditBook" asp-route-id="@Model.BookId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a asp-controller="Admin" asp-action="EditBook" asp-route-id="@Model.Book.BookId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <h3>Böcker i bibliteket</h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>Böcker i bibliteket</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addBookItems"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <!--Modal for adding book items-->
+                            <div class="modal fade" tabindex="-1" id="addBookItems" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form asp-action="AddBookItems">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Lägga till exemplar</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Hur många exemplar vill du lägga till?
+                                                <input class="col-md-2 form-control" type="number" value="1" name="amount" />
+                                                <input hidden name="bookId" value="@Model.Book.BookId" />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ångra</button>
+                                                <button class="btn btn-success" type="submit">Lägg Till</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--End of modal-->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -31,14 +61,66 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Status</th>
+                                <th>Tillbaka</th>
+                                <th>Kund</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var bookItem in Model.BookItems)
                             {
                                 <tr>
-                                    <td>@bookItem.BookItemId</td>                               
-                                    <td>Utlånad/Tillgänglig?</td>
+                                    <td>@bookItem.BookItemId</td>
+                                    @if (@bookItem.IsAvailable)
+                                    {
+                                        <td><span class="badge bg-success">Tillgänglig</span></td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                    else if (bookItem.IsLate)
+                                    {
+                                        <td><span class="badge bg-danger">Försenad</span></td>
+                                        <td class="text-danger">@bookItem.DueDate.ToString("yyyy-MM-dd")</td>
+                                        <td>
+                                            <a class="btn btn-primary" asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@bookItem.Customer.CustomerId" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Namn: @bookItem.Customer.CustomerFirstName @bookItem.Customer.CustomerLastName</br>Tel: @bookItem.Customer.Phone">
+                                                <i class="fa-solid fa-user"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge bg-info">Ej tillgänglig</span></td>
+                                        <td>@bookItem.DueDate.ToString("yyyy-MM-dd")</td>
+                                        <td>
+                                            <a class="btn btn-primary" asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@bookItem.Customer.CustomerId" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Namn: @bookItem.Customer.CustomerFirstName @bookItem.Customer.CustomerLastName</br>Tel: @bookItem.Customer.Phone">
+                                                <i class="fa-solid fa-user"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    <td>
+                                        <div class="d-flex justify-content-end">                                           
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#"+"confirmModal"+bookItem.BookItemId)">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal fade" tabindex="-1" id="@("confirmModal"+bookItem.BookItemId)" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Radera Bok</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Vill du verkligen radera detta exemplar av @Model.Book.BookTitle med id: @bookItem.BookItemId?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ångra</button>
+                                                        <a class="btn btn-danger" asp-controller="Admin" asp-action="RemoveBookItem" asp-route-bookItemId="@bookItem.BookItemId" asp-route-bookId="@Model.Book.BookId">Radera</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             }
                         </tbody>

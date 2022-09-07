@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ångra</button>
-                                                <a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteBookByIsbn" asp-route-isbn="@book.ISBN">Radera</a>
+                                                <a class="btn btn-danger" asp-controller="Admin" asp-action="RemoveBook" asp-route-bookId="@book.BookId">Radera</a>
                                             </div>
                                         </div>
                                     </div>
