@@ -5,11 +5,18 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-decoration-underline">@Model.Book.BookTitle</h2>
-                    <label for="author">Författare</label>
-                    <h4 id="author">@Model.Book.BookAuthor</h4>
-                    <label for="isbn">ISBN</label>
-                    <h4 id="isbn">@Model.Book.ISBN</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="card-title text-decoration-underline">@Model.Book.BookTitle</h2>
+                            <label for="author">Författare</label>
+                            <h4 id="author">@Model.Book.BookAuthor</h4>
+                            <label for="isbn">ISBN</label>
+                            <h4 id="isbn">@Model.Book.ISBN</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="@Model.Book.ImageURL" class="admin-thumbnail img-fluid" alt="Image of book"/>
+                        </div>
+                    </div>     
                     <label for="description">Beskrivning</label>
                     <h4 class="overflow-auto description" id="description">@Model.Book.BookDescription</h4>
                     <label for="amount">Antal i Bibliotek</label>

@@ -23,4 +23,18 @@
     <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Admin\AddBook.cshtml" />
+    <None Include="Views\Admin\AddCustomer.cshtml" />
+    <None Include="Views\Admin\AdminBookPage.cshtml" />
+    <None Include="Views\Admin\EditBook.cshtml" />
+    <None Include="Views\Admin\Index.cshtml" />
+    <None Include="Views\Admin\ListBooks.cshtml" />
+    <None Include="Views\Admin\ListCustomers.cshtml" />
+    <None Include="Views\Admin\_adminMenu.cshtml" />
+    <None Include="Views\Book\BookPage.cshtml" />
+    <None Include="Views\Book\Components\_bookCard.cshtml" />
+    <None Include="Views\Book\ListBooks.cshtml" />
+  </ItemGroup>
+
 </Project>

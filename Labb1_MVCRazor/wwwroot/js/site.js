@@ -5,3 +5,8 @@
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+function UpdateBookImage() {
+    var imgUrl = document.getElementById("bookImgUrl").value;
+    var img = document.getElementById("bookImg");
+    img.innerHTML = `<img src='${imgUrl}' class='img-fluid admin-thumbnail me-1' alt='Image of book' />`;
+}

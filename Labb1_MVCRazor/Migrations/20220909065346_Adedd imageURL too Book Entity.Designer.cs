@@ -4,6 +4,7 @@ using Labb1_MVCRazor.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb1_MVCRazor.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220909065346_Adedd imageURL too Book Entity")]
+    partial class AdeddimageURLtooBookEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Sapiens",
                             ISBN = "9780099590088",
-                            ImageURL = "/Images/sapiens.jpg"
+                            ImageURL = "~/Images/sapiens.jpg"
                         },
                         new
                         {
@@ -71,7 +73,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Snabba Cash",
                             ISBN = "9789170016400",
-                            ImageURL = "/Images/snabba-cash.jpg"
+                            ImageURL = "~/Images/snabba-cash.jpg"
                         },
                         new
                         {
@@ -80,7 +82,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Kungshjärta",
                             ISBN = "9789113113432",
-                            ImageURL = "/Images/kungshjärta.jpg"
+                            ImageURL = "~/Images/kungshjärta.jpg"
                         },
                         new
                         {
@@ -89,7 +91,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Svart Historia",
                             ISBN = "9789127173194",
-                            ImageURL = "/Images/svart-historia.jpg"
+                            ImageURL = "~/Images/svart-historia.jpg"
                         },
                         new
                         {
@@ -98,7 +100,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Paradis City",
                             ISBN = "9789100196424",
-                            ImageURL = "/Images/paradis-city.jpg"
+                            ImageURL = "~/Images/paradis-city.jpg"
                         },
                         new
                         {
@@ -107,7 +109,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Stjärnfall",
                             ISBN = "9789113113982",
-                            ImageURL = "/Images/stjärnfall.jpg"
+                            ImageURL = "~/Images/stjärnfall.jpg"
                         },
                         new
                         {
@@ -116,7 +118,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Livet efter 40 : En guide för män",
                             ISBN = "9789177958369",
-                            ImageURL = "/Images/livet-efter-40--en-guide-för-män.jpg"
+                            ImageURL = "~/Images/livet-efter-40--en-guide-för-män.jpg"
                         },
                         new
                         {
@@ -125,7 +127,7 @@ namespace Labb1_MVCRazor.Migrations
                             BookDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             BookTitle = "Svartfågel",
                             ISBN = "9789177956327",
-                            ImageURL = "/Images/svartfågel.jpg"
+                            ImageURL = "~/Images/svartfågel.jpg"
                         });
                 });
 

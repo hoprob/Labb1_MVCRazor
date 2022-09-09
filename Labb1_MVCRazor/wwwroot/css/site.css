@@ -48,3 +48,8 @@ body {
 .card .description {
     max-height: 150px;
 }
+
+.admin-thumbnail {
+    width: 7rem;  
+    margin-left: 4rem;
+}
