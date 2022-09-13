@@ -16,9 +16,9 @@ namespace Labb1_MVCRazor.Models
 
         public Customer CreateCustomer(Customer newCustomer)
         {
-            _appDbContext.Customers.Add(newCustomer);
+            var customer = _appDbContext.Customers.Add(newCustomer);
             _appDbContext.SaveChanges();
-            return newCustomer;
+            return customer.Entity;
         }
 
         public Customer EditCustomer(Customer customer)

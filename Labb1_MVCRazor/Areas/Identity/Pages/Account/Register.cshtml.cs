@@ -30,13 +30,15 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ICustomerRepository _customers;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ICustomerRepository customers)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +46,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _customers = customers;
         }
 
         /// <summary>
@@ -71,6 +74,35 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Firstname must be min. 2 and max. 25 characters!")]
+            [Display(Name = "Förnamn")]
+            public string CustomerFirstName { get; set; }
+
+            [Required]
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Lastname must be min. 2 and max. 25 characters!")]
+            [Display(Name = "Efternamn")]
+            public string CustomerLastName { get; set; }
+
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name = "Telefonnummer")]
+            public string Phone { get; set; }
+
+            [Required]
+            [StringLength(50, MinimumLength = 5)]
+            [Display(Name = "Adress")]
+            public string Address { get; set; }
+
+            [Required]
+            [StringLength(10, MinimumLength = 4)]
+            [Display(Name = "Postnummer")]
+            public string ZipCode { get; set; }
+
+            [Required]
+            [StringLength(70, MinimumLength = 2)]
+            [Display(Name = "Ort")]
+            public string City { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -87,7 +119,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Lösenord")]
             public string Password { get; set; }
 
             /// <summary>
@@ -95,7 +127,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Bekräfta Lösenord")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
@@ -113,8 +145,19 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var newCustomer = _customers.CreateCustomer(new Customer //TODO Make this async if changing..
+                {
+                    CustomerFirstName = Input.CustomerFirstName,
+                    CustomerLastName = Input.CustomerLastName,
+                    CustomerEmail = Input.Email,
+                    Phone = Input.Phone,
+                    Address = Input.Address,
+                    ZipCode = Input.ZipCode,
+                    City = Input.City
+                });
 
+                var user = CreateUser();
+                user.Customer = newCustomer;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
