@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,9 +32,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="ListBooks">Books</a>
                         </li>
-                        <li class="nav-item">
-                            <partial name="../Admin/_adminMenu" />
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <partial name="../Admin/_adminMenu" />
+                            </li>
+                        }
                         <li class="nav-item">
                             <partial name="_loginPartial" />
                         </li>

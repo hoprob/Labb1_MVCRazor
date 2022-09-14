@@ -1,0 +1,39 @@
+﻿@model Book
+
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager;
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>Bekräfta ditt lån</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <!--Book Info-->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="" alt="Image of book" />
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title text-decoration-underline">@Model.BookTitle</h2>
+                        <label for="author">Författare</label>
+                        <h4 id="author">@Model.BookAuthor</h4>
+                        <label for="isbn">ISBN</label>
+                        <h4 id="isbn">@Model.ISBN</h4>
+                        <label for="description">Beskrivning</label>
+                        <h4 class="overflow-auto description" id="description">@Model.BookDescription</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form asp-action="NewBookLoan" asp-route-bookISBN="@Model.ISBN" asp-route-userId="@userManager.GetUserId(User)">
+                    <label for="#loanDate">Lån datum</label>
+                    <input id="loanDate" type="date" class="mb-3" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled />
+                    <br />
+                    <label for="#dueDate">Återlämnas</label>
+                    <input id="dueDate" type="date" class="mb-3" value="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" disabled />
+                    <br />
+                    <button type="submit" class="btn btn-primary">Bekräfta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

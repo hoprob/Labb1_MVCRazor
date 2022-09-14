@@ -50,6 +50,14 @@ namespace Labb1_MVCRazor.Models
             return _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(c => c.CustomerId == id);
         }
 
+        public Customer GetCustomerByUserId(string userId)
+
+        {
+            var user = _appDbContext.Users.Include(c => c.Customer).FirstOrDefault(u => u.Id == userId);
+
+            return user.Customer;
+        }
+
         public Customer RemoveCustomer(Customer customer)
         {
             var toRemove = _appDbContext.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
