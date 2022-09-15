@@ -118,7 +118,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     b.HasKey("BookId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
 
                     b.HasData(
                         new
@@ -202,7 +202,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookItems");
+                    b.ToTable("BookItems", (string)null);
 
                     b.HasData(
                         new
@@ -336,7 +336,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("BookLoans");
+                    b.ToTable("BookLoans", (string)null);
 
                     b.HasData(
                         new
@@ -501,7 +501,7 @@ namespace Labb1_MVCRazor.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
 
                     b.HasData(
                         new

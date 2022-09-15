@@ -15,27 +15,32 @@
                 </tr> 
             </thead>
             <tbody>
-                @foreach (var bookLoan in Model.BookLoans)
+                @if (Model.BookLoans != null)
                 {
-                    <tr>
-                        <td>@bookLoan.BookItem.Book.BookTitle</td>
-                        <td>@bookLoan.BookItem.Book.BookAuthor</td>
-                        <td>@bookLoan.LoanDate.ToString("yyyy-MM-dd")</td>
-                        <td>@if(bookLoan.ReturnDate > DateTime.Parse("1900-01-01"))
-                            {
-                                <span class="badge bg-success">Återlämnad</span>
-                            }
-                            else if (bookLoan.DueDate < DateTime.Now)
-                            {
-                                <span class="badge bg-danger">Försenad</span>
-                            }
-                            else 
-                            { 
-                                <span class="badge bg-info">Ej Återlämnad</span>
-                            }
-                        </td>
-                    </tr>
+                    @foreach (var bookLoan in Model.BookLoans)
+                    {
+                        <tr>
+                            <td>@bookLoan.BookItem.Book.BookTitle</td>
+                            <td>@bookLoan.BookItem.Book.BookAuthor</td>
+                            <td>@bookLoan.LoanDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                @if (bookLoan.ReturnDate > DateTime.Parse("1900-01-01"))
+                                {
+                                    <span class="badge bg-success">Återlämnad</span>
+                                }
+                                else if (bookLoan.DueDate < DateTime.Now)
+                                {
+                                    <span class="badge bg-danger">Försenad</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info">Ej Återlämnad</span>
+                                }
+                            </td>
+                        </tr>
+                    }
                 }
+
             </tbody>
         </table>
     </div>

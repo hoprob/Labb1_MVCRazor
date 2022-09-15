@@ -34,7 +34,7 @@
                             <td>@customer.ZipCode, @customer.City</td>
                             <td>
                                 <div class="d-flex justify-content-end">
-                                    <a asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@customer.CustomerId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a>
+                                    <a asp-controller="Admin" asp-action="CustomerPage" asp-route-id="@customer.CustomerId" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i></a>
                                     <a asp-controller="Customer" asp-action="EditCustomer" asp-route-id="@customer.CustomerId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="@("#"+"confirmModal"+customer.CustomerId)">
                                         <i class="fa-solid fa-trash"></i>

@@ -17,13 +17,16 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ICustomerRepository _customers;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ICustomerRepository customers)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _customers = customers;
         }
 
         /// <summary>
@@ -57,20 +60,47 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Tele")]
             public string PhoneNumber { get; set; }
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Förnamnet måste vara minst 2 bokstäver och max 25")]
+            [Display(Name = "Förnamn")]
+            public string FirstName { get; set; }
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Efternamnet måste vara minst 2 bokstäver och max 25")]
+            [Display(Name = "Efternamn")]
+            public string LastName { get; set; }
+            [StringLength(55, MinimumLength = 2, ErrorMessage = "Adressen måste vara minst 2 bokstäver och max 55")]
+            [Display(Name = "Adress")]
+            public string Address { get; set; }
+            [StringLength(10, MinimumLength = 4, ErrorMessage = "Postnumret måste vara minst 4 tecken och max 10")]
+            [Display(Name = "Postnummer")]
+            public string ZipCode { get; set; }
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Orten måste vara minst 2 bokstäver och max 25")]
+            [Display(Name = "Ort")]
+            public string City { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
+            var customer = _customers.GetCustomerByUserId(user.Id);
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = customer.Phone;
+            var firstName = customer.CustomerFirstName;
+            var lastName = customer.CustomerLastName;
+            var address = customer.Address;
+            var zipcode = customer.ZipCode;
+            var city = customer.City;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                Address = address,
+                ZipCode = zipcode,
+                City = city
+                
             };
         }
 
@@ -100,15 +130,43 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
+            var customer = _customers.GetCustomerByUserId(user.Id);
+            var phoneNumber = customer.Phone;
+            var firstName = customer.CustomerFirstName;
+            var lastName = customer.CustomerLastName;
+            var address = customer.Address;
+            var zipcode = customer.ZipCode;
+            var city = customer.City;
             if (Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                customer.Phone = Input.PhoneNumber;
+                _customers.EditCustomer(customer);
+            }
+            if(Input.FirstName != firstName)
+            {
+                user.Customer.CustomerFirstName = Input.FirstName;
+                _customers.EditCustomer(customer);
+            }
+            if (Input.LastName != lastName)
+            {
+                user.Customer.CustomerLastName = Input.LastName;
+                _customers.EditCustomer(customer);
+            }
+            if (Input.Address != address)
+            {
+                user.Customer.Address = Input.Address;
+                _customers.EditCustomer(customer);
+            }
+            if (Input.ZipCode != zipcode)
+            {
+                user.Customer.ZipCode = Input.ZipCode;
+                _customers.EditCustomer(customer);
+            }
+            if (Input.City != city)
+            {
+                user.Customer.City = Input.City;
+                _customers.EditCustomer(customer);
             }
 
             await _signInManager.RefreshSignInAsync(user);

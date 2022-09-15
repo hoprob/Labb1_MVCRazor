@@ -30,6 +30,12 @@ namespace Labb1_MVCRazor.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public IActionResult CustomerPage(int id)
+        {
+            var customer = _customers.GetCustomerById(id);
+            return View(customer);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddCustomer(Customer customer)
         {

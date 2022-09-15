@@ -1,4 +1,5 @@
 ﻿using Labb1_MVCRazor.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb1_MVCRazor.Controllers
@@ -12,11 +13,12 @@ namespace Labb1_MVCRazor.Controllers
             _customers = customers;
         }
 
-        public IActionResult CustomerPage(int id)
+        public IActionResult CustomerPage(string userId)
         {
-            var customer = _customers.GetCustomerById(id);
+            var customer = _customers.GetCustomerByUserIdIncludeBookLoan(userId);
             return View(customer);
         }
+
         public IActionResult EditCustomer(int id)
         {
             return View(_customers.GetCustomerById(id));
