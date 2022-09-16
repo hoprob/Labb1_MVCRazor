@@ -1,4 +1,5 @@
 ﻿using Labb1_MVCRazor.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb1_MVCRazor.Controllers
@@ -20,6 +21,7 @@ namespace Labb1_MVCRazor.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult NewBookLoan(string bookISBN)
         {
             var book = _books.GetBookByIsbn(bookISBN);
@@ -36,7 +38,15 @@ namespace Labb1_MVCRazor.Controllers
                 _bookLoans.AddBookLoan(new BookLoan { BookItemId = booksAvailable[0].BookItemId, CustomerId = customer.CustomerId, LoanDate = DateTime.Now, DueDate = DateTime.Now.AddDays(30) });
                 return RedirectToAction("ListBooks", "Book");
             }
-            return View();
+            ViewData["NoBookAvailable"] = "Tyvärr finns det ej något ledigt exemplar av boken i Biblioteket. Var vänlig försök en annan dag!";
+            return View(_books.GetBookByIsbn(bookISBN)); //TODO Skicka med meddelande att boken ej är tillgänglig
+        }
+        public IActionResult ReturnBook(int loanId, string userId)
+        {
+            var loan = _bookLoans.GetBookLoanById(loanId);
+            loan.ReturnDate = DateTime.Now;
+            _bookLoans.EditBookLoan(loan);
+            return RedirectToAction("CustomerPage", "Customer", new { userId = userId });
         }
     }
 }

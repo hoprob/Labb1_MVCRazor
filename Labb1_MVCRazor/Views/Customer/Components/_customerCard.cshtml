@@ -16,6 +16,5 @@
         <label for="city">Stad</label>
         <h4 id="city">@Model.City</h4>
     </div>
-    <a asp-controller="Customer" asp-action="EditCustomer" asp-route-id="@Model.CustomerId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-    <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    <a id="manage" class="btn btn-warning" asp-area="Identity" asp-page="/Account/Manage/Index"  title="Manage"><i class="fa-solid fa-pen-to-square"></i></a>
 </div>

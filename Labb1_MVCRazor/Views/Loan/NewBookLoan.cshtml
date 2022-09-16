@@ -31,8 +31,16 @@
                     <label for="#dueDate">Återlämnas</label>
                     <input id="dueDate" type="date" class="mb-3" value="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" disabled />
                     <br />
-                    <button type="submit" class="btn btn-primary">Bekräfta</button>
+                    <button type="submit" class="btn btn-primary mb-3">Bekräfta</button>
                 </form>
+                @if (ViewData.ContainsKey("NoBookAvailable"))
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">                      
+                        <div>@ViewData["NoBookAvailable"]</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss alert"></button>                    
+                    </div>
+
+                    }
             </div>
         </div>
     </div>

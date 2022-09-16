@@ -48,3 +48,13 @@ body {
 .card .description {
     max-height: 150px;
 }
+
+.borrowed-books {
+    max-height: 30rem;
+    overflow:auto;
+}
+
+.bookLink{
+    color: black;
+    font-weight: bold;
+}

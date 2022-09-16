@@ -35,6 +35,24 @@ namespace Labb1_MVCRazor.Controllers
             var customer = _customers.GetCustomerById(id);
             return View(customer);
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(int id)
+        {
+            return View(_customers.GetCustomerById(id));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult EditCustomer(Customer customer)
+        {
+            //if (ModelState.IsValid)
+            //{
+            _customers.EditCustomer(customer);
+            return RedirectToAction("CustomerPage", new { id = customer.CustomerId });
+            //}
+            //return View(customer);
+        }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddCustomer(Customer customer)

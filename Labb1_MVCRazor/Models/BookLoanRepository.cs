@@ -23,9 +23,11 @@
             return bookLoan;
         }
 
-        public BookLoan EditBookLoan(BookLoan bookLoan, BookLoan newData)
+        public BookLoan EditBookLoan(BookLoan bookLoan)
         {
-            throw new NotImplementedException();
+            var updatedLoan = _appDbContext.BookLoans.Update(bookLoan).Entity;
+            _appDbContext.SaveChanges();
+            return updatedLoan;
         }
     }
 }

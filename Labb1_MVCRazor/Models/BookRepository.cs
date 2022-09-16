@@ -54,7 +54,7 @@ namespace Labb1_MVCRazor.Models
             {
                 if (book.BookLoans.Count > 0)
                 {
-                    var orderedLoans = book.BookLoans.OrderBy(d => d.LoanDate).ToList();
+                    var orderedLoans = book.BookLoans.OrderByDescending(d => d.LoanDate).ToList();
                     if (orderedLoans[0].ReturnDate > DateTime.Parse("0001-01-01"))
                         availableBooks.Add(book);
                 }

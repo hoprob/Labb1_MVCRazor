@@ -6,9 +6,11 @@ namespace Labb1_MVCRazor.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
-        public BookController(IBookRepository bookRepository)
+        private readonly IBookLoanRepository _bookLoans;
+        public BookController(IBookRepository bookRepository, IBookLoanRepository bookLoans)
         {
             _bookRepository = bookRepository;
+            _bookLoans = bookLoans;
         }
         public IActionResult ListBooks()
         {
@@ -20,5 +22,7 @@ namespace Labb1_MVCRazor.Controllers
             var book = _bookRepository.GetBookById(bookId);
             return View(book);
         }
+
+        
     }
 }
