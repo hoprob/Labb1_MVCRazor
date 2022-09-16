@@ -15,7 +15,7 @@ namespace Labb1_MVCRazor.ViewModels
 
         public bool Available(IEnumerable<BookLoan> loans)
         {
-            var orderedList = loans.OrderBy(d => d.LoanDate).ToList();
+            var orderedList = loans.OrderBy(d => d.LoanDate).ToList(); 
             if (orderedList.Count > 0)
             {
                 if (orderedList[0].ReturnDate > DateTime.Parse("0001-01-01"))

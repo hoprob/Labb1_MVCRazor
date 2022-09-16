@@ -89,7 +89,7 @@
                                         <td><span class="badge bg-danger">Försenad</span></td>
                                         <td class="text-danger">@bookItem.DueDate.ToString("yyyy-MM-dd")</td>
                                         <td>
-                                            <a class="btn btn-primary" asp-controller="Customer" asp-action="CustomerPage" asp-route-id="@bookItem.Customer.CustomerId" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Namn: @bookItem.Customer.CustomerFirstName @bookItem.Customer.CustomerLastName</br>Tel: @bookItem.Customer.Phone">
+                                            <a class="btn btn-primary" asp-controller="Admin" asp-action="CustomerPage" asp-route-id="@bookItem.Customer.CustomerId" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Namn: @bookItem.Customer.CustomerFirstName @bookItem.Customer.CustomerLastName</br>Tel: @bookItem.Customer.Phone">
                                                 <i class="fa-solid fa-user"></i>
                                             </a>
                                         </td>

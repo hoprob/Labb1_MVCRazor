@@ -1,5 +1,6 @@
 ﻿using Labb1_MVCRazor.Models;
 using Labb1_MVCRazor.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Runtime.CompilerServices;
@@ -15,16 +16,44 @@ namespace Labb1_MVCRazor.Controllers
             _customers = customers;
             _books = books;
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddCustomer()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult CustomerPage(int id)
+        {
+            var customer = _customers.GetCustomerById(id);
+            return View(customer);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(int id)
+        {
+            return View(_customers.GetCustomerById(id));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult EditCustomer(Customer customer)
+        {
+            //if (ModelState.IsValid)
+            //{
+            _customers.EditCustomer(customer);
+            return RedirectToAction("CustomerPage", new { id = customer.CustomerId });
+            //}
+            //return View(customer);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddCustomer(Customer customer)
         {
@@ -32,11 +61,13 @@ namespace Labb1_MVCRazor.Controllers
             return RedirectToAction("ListCustomers");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ListCustomers()
         {
             return View(_customers.GetAllCustomers);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCustomer(int id)
         {
             var toDelete = _customers.GetCustomerById(id);
@@ -47,11 +78,13 @@ namespace Labb1_MVCRazor.Controllers
             return RedirectToAction("ListCustomers");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ListBooks()
         {
             return View(_books.GetAllBooks);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminBookPage(int id)
         {
             var book = _books.GetBookById(id);
@@ -64,11 +97,13 @@ namespace Labb1_MVCRazor.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AddBook()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddBook(AddBookViewModel bookViewModel)
         {
@@ -80,6 +115,7 @@ namespace Labb1_MVCRazor.Controllers
             return RedirectToAction("ListBooks");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddBookItems(int bookId, int amount)
         {
@@ -90,11 +126,14 @@ namespace Labb1_MVCRazor.Controllers
             return RedirectToAction("AdminBookPage", new { id = bookId });
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EditBook(int id)
         {
             var bookToUpdate = _books.GetBookById(id);
             return View(bookToUpdate);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditBook(Book book)
         {
@@ -102,12 +141,14 @@ namespace Labb1_MVCRazor.Controllers
             return RedirectToAction("AdminBookPage", new { id = book.BookId });
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveBook(int bookId)
         {
             _books.RemoveBook(_books.GetBookById(bookId));
             return RedirectToAction("ListBooks");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveBookItem(int bookItemId, int bookId)
         {
             _books.RemoveBookItem(bookItemId);

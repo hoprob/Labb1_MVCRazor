@@ -1,0 +1,72 @@
+﻿@model Customer
+<div class="col-md-8 offset-md-2">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-decoration-underline">@Model.CustomerFirstName @Model.CustomerLastName</h2>
+                    <label for="id">Kund-id</label>
+                    <h4 id="id">@Model.CustomerId</h4>
+                    <label for="email">Email</label>
+                    <h4 id="email">@Model.CustomerEmail</h4>
+                    <label for="phone">Tel.Nummer</label>
+                    <h4 id="phone">@Model.Phone</h4>
+                    <label for="address">Adress</label>
+                    <h4 id="adress">@Model.Address</h4>
+                    <label for="zipcode">Postnummer</label>
+                    <h4 id="zipcode">@Model.ZipCode</h4>
+                    <label for="city">Stad</label>
+                    <h4 id="city">@Model.City</h4>
+                </div>
+                <a asp-controller="Admin" asp-action="EditCustomer" asp-route-id="@Model.CustomerId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Lånade böcker</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Bok</th>
+                                <th scope="col">Författare</th>
+                                <th scope="col">Lånad</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.BookLoans != null)
+                            {
+                                @foreach (var bookLoan in Model.BookLoans)
+                                {
+                                    <tr>
+                                        <td>@bookLoan.BookItem.Book.BookTitle</td>
+                                        <td>@bookLoan.BookItem.Book.BookAuthor</td>
+                                        <td>@bookLoan.LoanDate.ToString("yyyy-MM-dd")</td>
+                                        <td>
+                                            @if (bookLoan.ReturnDate > DateTime.Parse("1900-01-01"))
+                                            {
+                                                <span class="badge bg-success">Återlämnad</span>
+                                            }
+                                            else if (bookLoan.DueDate < DateTime.Now)
+                                            {
+                                                <span class="badge bg-danger">Försenad</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-info">Ej Återlämnad</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

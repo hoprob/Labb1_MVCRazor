@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Labb1_MVCRazor.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb1_MVCRazor.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : Labb1_MVCRazorContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

@@ -16,9 +16,9 @@ namespace Labb1_MVCRazor.Models
 
         public Customer CreateCustomer(Customer newCustomer)
         {
-            _appDbContext.Customers.Add(newCustomer);
+            var customer = _appDbContext.Customers.Add(newCustomer);
             _appDbContext.SaveChanges();
-            return newCustomer;
+            return customer.Entity;
         }
 
         public Customer EditCustomer(Customer customer)
@@ -48,6 +48,22 @@ namespace Labb1_MVCRazor.Models
         public Customer GetCustomerById(int id)
         {
             return _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(c => c.CustomerId == id);
+        }
+
+        public Customer GetCustomerByUserId(string userId)
+
+        {
+            var user = _appDbContext.Users.Include(c => c.Customer).FirstOrDefault(u => u.Id == userId);
+
+            return user.Customer;
+        }
+
+        public Customer GetCustomerByUserIdIncludeBookLoan(string userId)
+
+        {
+            var user = _appDbContext.Users.Include(c => c.Customer).ThenInclude(b => b.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(u => u.Id == userId);
+
+            return user.Customer;
         }
 
         public Customer RemoveCustomer(Customer customer)

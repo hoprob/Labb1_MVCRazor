@@ -5,6 +5,6 @@
         IEnumerable<BookLoan> GetAllBookLoans { get; }
         BookLoan GetBookLoanById(int id);
         BookLoan AddBookLoan(BookLoan newBookLoan);
-        BookLoan EditBookLoan(BookLoan bookLoan, BookLoan newData);
+        BookLoan EditBookLoan(BookLoan bookLoan);
     }
 }

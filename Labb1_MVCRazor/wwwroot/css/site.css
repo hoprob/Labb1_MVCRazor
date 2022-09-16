@@ -49,7 +49,17 @@ body {
     max-height: 150px;
 }
 
+.borrowed-books {
+    max-height: 30rem;
+    overflow:auto;
+}
+
+.bookLink{
+    color: black;
+    font-weight: bold;
+}
+
 .admin-thumbnail {
-    width: 7rem;  
+    width: 7rem;
     margin-left: 4rem;
 }

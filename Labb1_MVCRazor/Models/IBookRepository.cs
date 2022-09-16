@@ -5,6 +5,7 @@
         IEnumerable<Book> GetAllBooks { get; }
         Book GetBookById(int id);
         Book GetBookByIsbn(string isbn);
+        IEnumerable<BookItem> GetAvailableBooksItemsByISBN(string ISBN);
         Book AddBook(Book newBook);
         BookItem AddBookItem(BookItem bookItem);
         Book EditBook(Book book);

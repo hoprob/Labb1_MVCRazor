@@ -40,9 +40,28 @@ namespace Labb1_MVCRazor.Models
             return _appDbcontext.Books.Include(b => b.BookItems).ThenInclude(b => b.BookLoans).ThenInclude(c => c.Customer).FirstOrDefault(b => b.BookId == id); //TODO Can I split this up?
         }
 
-        public Book GetBookByIsbn(string isbn)
+       
+        public Book GetBookByIsbn(string ISBN)
         {
-            return _appDbcontext.Books.FirstOrDefault(b => b.ISBN == isbn);
+            return _appDbcontext.Books.FirstOrDefault(b => b.ISBN == ISBN);
+        }
+
+        public IEnumerable<BookItem> GetAvailableBooksItemsByISBN(string ISBN)
+        {
+            var books = _appDbcontext.BookItems.Include(l => l.BookLoans).Where(b => b.Book.ISBN == ISBN);
+            List<BookItem> availableBooks = new List<BookItem>();
+            foreach (BookItem book in books)
+            {
+                if (book.BookLoans.Count > 0)
+                {
+                    var orderedLoans = book.BookLoans.OrderByDescending(d => d.LoanDate).ToList();
+                    if (orderedLoans[0].ReturnDate > DateTime.Parse("0001-01-01"))
+                        availableBooks.Add(book);
+                }
+                else
+                    availableBooks.Add(book);
+            }
+            return availableBooks;
         }
 
         public Book RemoveBook(Book book)

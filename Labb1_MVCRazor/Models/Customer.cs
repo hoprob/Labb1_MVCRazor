@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Labb1_MVCRazor.Models
 {//TODO Check the attributes and erroir messages
@@ -7,7 +9,7 @@ namespace Labb1_MVCRazor.Models
         [Key]
         public int CustomerId { get; set; }
         [Required]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Firstname must be min. 2 and max. 25 characters!")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Firstname must be min. 2 and max. 25 characters!")] 
         public string CustomerFirstName { get; set; }
         [Required]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Lastname must be min. 2 and max. 25 characters!")]
