@@ -19,6 +19,8 @@ body {
   margin-bottom: 60px;
 }
 
+.navbar .nav
+
 .navbar .nav-link {
     font-family: 'Ubuntu', sans-serif;
     font-size: 1.1rem;
@@ -62,4 +64,8 @@ body {
 .admin-thumbnail {
     width: 7rem;
     margin-left: 4rem;
+}
+
+.book-thumbnail{
+    max-width: 100%; 
 }

@@ -4,11 +4,13 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ApplicationUserManager UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav align-content-center">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="Customer" asp-action="CustomerPage" asp-route-userId="@UserManager.GetUserId(User)" title="Manage">Hej @UserManager.GetUserFullName(UserManager.GetUserId(User))</a>
+            <form id="manageForm" class="form-inline" asp-controller="Customer" asp-action="CustomerPage" asp-route-userId="@UserManager.GetUserId(User)">
+            <button id="manage" type="submit" class="nav-link btn btn-link text-dark" title="Manage"><i class="fa-solid fa-user me-sm-1"></i>@UserManager.GetUserFullName(UserManager.GetUserId(User))</button>
+                </form>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -19,10 +21,10 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Registera Konto</a>
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Logga In</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Logga In</a>
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Registera Konto</a>
         </li>
     }
 </ul>

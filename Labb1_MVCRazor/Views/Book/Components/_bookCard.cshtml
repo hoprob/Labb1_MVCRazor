@@ -4,7 +4,11 @@
     }
 
     <div class="card m-1" style="width: 13rem;">
-        <img class="card-img-top img-thumbnail" src="@Model.ImageURL" alt="Image of book" style="height: 60%;" />
+        <div class="card-img-top img-thumbnail">
+            <a asp-controller="Book" asp-action="BookPage" asp-route-bookId="@Model.BookId">
+                <img class="book-thumbnail" src="@Model.ImageURL" alt="Image of book"/>
+            </a>
+        </div>
         <div class="card-body">
             <a class="bookLink" asp-controller="Book" asp-action="BookPage" asp-route-bookId="@Model.BookId">
                 <h3 class="card-title text-decoration-underline">@Model.BookTitle</h3>

@@ -74,32 +74,33 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(25, MinimumLength = 2, ErrorMessage = "Firstname must be min. 2 and max. 25 characters!")]
+            [Required(ErrorMessage = "Du måste registrera ett förnamn!")]
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Förnamn måste vara min. 2 och max. 25 tecken!")]
             [Display(Name = "Förnamn")]
             public string CustomerFirstName { get; set; }
 
-            [Required]
-            [StringLength(25, MinimumLength = 2, ErrorMessage = "Lastname must be min. 2 and max. 25 characters!")]
+            [Required(ErrorMessage = "Du måste registrera ett efternamn!")]
+            [StringLength(25, MinimumLength = 2, ErrorMessage = "Efternamn måste vara min. 2 och max. 25 tecken!")]
             [Display(Name = "Efternamn")]
             public string CustomerLastName { get; set; }
 
+            [Required(ErrorMessage = "Du måste registrera ett telefonnummer!")]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Telefonnummer")]
             public string Phone { get; set; }
 
-            [Required]
-            [StringLength(50, MinimumLength = 5)]
+            [Required(ErrorMessage = "Du måste registrera en adress!")]
+            [StringLength(50, MinimumLength = 5, ErrorMessage = "Adress måste vara min. 5 och max. 50 tecken!")]
             [Display(Name = "Adress")]
             public string Address { get; set; }
 
-            [Required]
-            [StringLength(10, MinimumLength = 4)]
+            [Required(ErrorMessage = "Du måste registrera ett postnummer!")]
+            [StringLength(10, MinimumLength = 4, ErrorMessage = "Postnummer måste vara min. 4 och max. 10 tecken!")]
             [Display(Name = "Postnummer")]
             public string ZipCode { get; set; }
 
-            [Required]
-            [StringLength(70, MinimumLength = 2)]
+            [Required(ErrorMessage = "Du måste registrera en ort!")]
+            [StringLength(70, MinimumLength = 2, ErrorMessage = "Ort måste vara min. 2 och max. 70 tecken!")]
             [Display(Name = "Ort")]
             public string City { get; set; }
 
@@ -107,8 +108,8 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Du måste registrera en email!")]
+            [EmailAddress(ErrorMessage = "Email har fel format!")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -116,7 +117,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Du måste registrera ett lösenord!")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Lösenord")]
@@ -128,7 +129,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Bekräfta Lösenord")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Lösenorden matchar ej!")]
             public string ConfirmPassword { get; set; }
         }
 
