@@ -12,7 +12,11 @@ namespace Labb1_MVCRazor.Models
         {
             _appDbcontext = appDbContext;
         }
-        public IEnumerable<Book> GetAllBooks => _appDbcontext.Books;
+        public async Task<IEnumerable<Book>> GetAllBooks()
+        {
+            //Thread.Sleep(2000); //TODO For testing load-page
+            return await _appDbcontext.Books.ToListAsync(); 
+        }
 
         public Book AddBook(Book newBook)
         {

@@ -79,9 +79,9 @@ namespace Labb1_MVCRazor.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult ListBooks()
+        public async Task<IActionResult> ListBooks()
         {
-            return View(_books.GetAllBooks);
+            return View(await _books.GetAllBooks());
         }
 
         [Authorize(Roles = "Admin")]

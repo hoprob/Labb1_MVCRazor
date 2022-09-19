@@ -12,9 +12,9 @@ namespace Labb1_MVCRazor.Controllers
             _bookRepository = bookRepository;
             _bookLoans = bookLoans;
         }
-        public IActionResult ListBooks()
+        public async Task<IActionResult> ListBooks()
         {
-            var books = _bookRepository.GetAllBooks;
+            var books = await _bookRepository.GetAllBooks();
             return View(books);
         }
         public IActionResult BookPage(int bookId)

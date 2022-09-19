@@ -2,7 +2,7 @@
 {
     public interface IBookRepository
     {
-        IEnumerable<Book> GetAllBooks { get; }
+        Task<IEnumerable<Book>> GetAllBooks();
         Book GetBookById(int id);
         Book GetBookByIsbn(string isbn);
         IEnumerable<BookItem> GetAvailableBooksItemsByISBN(string ISBN);
