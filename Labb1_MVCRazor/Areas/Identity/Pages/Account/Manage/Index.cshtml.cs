@@ -81,7 +81,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var customer = _customers.GetCustomerByUserId(user.Id);
+            var customer = await _customers.GetCustomerByUserId(user.Id);
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = customer.Phone;
             var firstName = customer.CustomerFirstName;
@@ -131,7 +131,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
             }
 
 
-            var customer = _customers.GetCustomerByUserId(user.Id);
+            var customer = await _customers.GetCustomerByUserId(user.Id);
             var phoneNumber = customer.Phone;
             var firstName = customer.CustomerFirstName;
             var lastName = customer.CustomerLastName;
@@ -141,32 +141,32 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
             if (Input.PhoneNumber != phoneNumber)
             {
                 customer.Phone = Input.PhoneNumber;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
             if(Input.FirstName != firstName)
             {
                 user.Customer.CustomerFirstName = Input.FirstName;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
             if (Input.LastName != lastName)
             {
                 user.Customer.CustomerLastName = Input.LastName;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
             if (Input.Address != address)
             {
                 user.Customer.Address = Input.Address;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
             if (Input.ZipCode != zipcode)
             {
                 user.Customer.ZipCode = Input.ZipCode;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
             if (Input.City != city)
             {
                 user.Customer.City = Input.City;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
             }
 
             await _signInManager.RefreshSignInAsync(user);

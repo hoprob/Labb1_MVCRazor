@@ -13,9 +13,9 @@ namespace Labb1_MVCRazor.Services
         {
             _customers = customers;
         }
-        public string GetUserFullName(string userId)
+        public async Task<string> GetUserFullName(string userId)
         {
-            var customer = _customers.GetCustomerByUserId(userId);
+            var customer = await _customers.GetCustomerByUserId(userId);
             return customer == null ? "No Name" : customer.CustomerFirstName + " " + customer.CustomerLastName;
         }
     }

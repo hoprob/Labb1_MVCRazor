@@ -146,7 +146,7 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var newCustomer = _customers.CreateCustomer(new Customer //TODO Make this async if changing..
+                var newCustomer = await _customers.CreateCustomer(new Customer
                 {
                     CustomerFirstName = Input.CustomerFirstName,
                     CustomerLastName = Input.CustomerLastName,

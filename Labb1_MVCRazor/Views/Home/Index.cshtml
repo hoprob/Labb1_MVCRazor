@@ -20,7 +20,7 @@
             <h3>Välkommen till <span class="logo">BIBLIOTEKET</span>!</h3>
             @if (SignInManager.IsSignedIn(User))
             {
-                <p>Hej @UserManager.GetUserFullName(UserManager.GetUserId(User)) klicka in på <a class="bookLink" asp-controller="Book" asp-action="ListBooks">böcker</a> för att börja låna!</p>
+                <p>Hej @await UserManager.GetUserFullName(UserManager.GetUserId(User)) klicka in på <a class="bookLink" asp-controller="Book" asp-action="ListBooks">böcker</a> för att börja låna!</p>
             }
             else
             {

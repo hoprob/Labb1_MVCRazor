@@ -14,12 +14,17 @@ namespace Labb1_MVCRazor.Controllers
         }
         public async Task<IActionResult> ListBooks()
         {
-            var books = await _bookRepository.GetAllBooks();
-            return View(books);
+            //Checks if it is a get request, to render page w. placeholders before data.
+            if (Request.Headers["x-requested-with"] == "XMLHttpRequest")
+            {
+                var books = await _bookRepository.GetAllBooks();
+                return PartialView("_listBooks", books);
+            }
+            return View();
         }
-        public IActionResult BookPage(int bookId)
+        public async Task<IActionResult> BookPage(int bookId)
         {
-            var book = _bookRepository.GetBookById(bookId);
+            var book = await _bookRepository.GetBookById(bookId);
             return View(book);
         }
 

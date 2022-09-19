@@ -15,8 +15,32 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Förnamn</th>
-                        <th scope="col">Efternamn</th>
+                        <th scope="col">
+                            Förnamn   
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                                      <ul class="dropdown-menu">
+                                          <li>
+                                              <a class="dropdown-item" asp-action="ListCustomers" asp-route-sortOrder="fName"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                                          </li>
+                                          <li>
+                                              <a class="dropdown-item" asp-action="ListCustomers" asp-route-sortOrder="fNameDesc"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                                          </li>
+                                      </ul>
+                        </th>
+                        <th scope="col">
+                            Efternamn
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-action="ListCustomers" asp-route-sortOrder="lName"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="ListCustomers" asp-route-sortOrder="lNameDesc"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                                </li>
+                            </ul>
+                        </th>
                         <th scope="col">Adress</th>
                         <th scope="col">Stad</th>
                         <th scope="col"></th>

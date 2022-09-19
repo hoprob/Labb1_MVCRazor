@@ -122,9 +122,9 @@ namespace Labb1_MVCRazor.Areas.Identity.Pages.Account.Manage
                 var userId = await _userManager.GetUserIdAsync(user);
                 await _userManager.SetEmailAsync(user, Input.NewEmail);
                 await _userManager.SetUserNameAsync(user, Input.NewEmail);
-                var customer = _customers.GetCustomerByUserId(user.Id);
+                var customer = await _customers.GetCustomerByUserId(user.Id);
                 customer.CustomerEmail = Input.NewEmail;
-                _customers.EditCustomer(customer);
+                await _customers.EditCustomer(customer);
                 var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 await _userManager.ConfirmEmailAsync(user, confirmationToken);
                 //var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail); //TODO Change email in both customer and applicationUSer

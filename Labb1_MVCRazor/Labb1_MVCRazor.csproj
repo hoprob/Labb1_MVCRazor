@@ -39,7 +39,7 @@
     <None Include="Views\Admin\_adminMenu.cshtml" />
     <None Include="Views\Book\BookPage.cshtml" />
     <None Include="Views\Book\Components\_bookCard.cshtml" />
-    <None Include="Views\Book\ListBooks.cshtml" />
+    <None Include="Views\Book\_listBooks.cshtml" />
   </ItemGroup>
 
 </Project>

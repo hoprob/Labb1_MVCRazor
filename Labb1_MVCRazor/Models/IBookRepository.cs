@@ -3,13 +3,13 @@
     public interface IBookRepository
     {
         Task<IEnumerable<Book>> GetAllBooks();
-        Book GetBookById(int id);
-        Book GetBookByIsbn(string isbn);
-        IEnumerable<BookItem> GetAvailableBooksItemsByISBN(string ISBN);
-        Book AddBook(Book newBook);
-        BookItem AddBookItem(BookItem bookItem);
-        Book EditBook(Book book);
-        Book RemoveBook(Book book);
-        BookItem RemoveBookItem(int bookItemId);
+        Task<Book> GetBookById(int id);
+        Task<Book> GetBookByIsbn(string isbn);
+        Task<IEnumerable<BookItem>> GetAvailableBooksItemsByISBN(string ISBN);
+        Task<Book> AddBook(Book newBook);
+        Task<BookItem> AddBookItem(BookItem bookItem);
+        Task<Book> EditBook(Book book);
+        Task<Book> RemoveBook(Book book);
+        Task<BookItem> RemoveBookItem(int bookItemId);
     }
 }

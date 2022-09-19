@@ -2,9 +2,9 @@
 {
     public interface IBookLoanRepository
     {
-        IEnumerable<BookLoan> GetAllBookLoans { get; }
-        BookLoan GetBookLoanById(int id);
-        BookLoan AddBookLoan(BookLoan newBookLoan);
-        BookLoan EditBookLoan(BookLoan bookLoan);
+        Task<IEnumerable<BookLoan>> GetAllBookLoans();
+        Task<BookLoan> GetBookLoanById(int id);
+        Task<BookLoan> AddBookLoan(BookLoan newBookLoan);
+        Task<BookLoan> EditBookLoan(BookLoan bookLoan);
     }
 }

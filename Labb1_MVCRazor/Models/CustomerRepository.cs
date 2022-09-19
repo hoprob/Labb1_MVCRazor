@@ -12,65 +12,57 @@ namespace Labb1_MVCRazor.Models
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Customer> GetAllCustomers => _appDbContext.Customers;
-
-        public Customer CreateCustomer(Customer newCustomer)
+        public async Task<IEnumerable<Customer>> GetAllCustomers()
         {
-            var customer = _appDbContext.Customers.Add(newCustomer);
-            _appDbContext.SaveChanges();
+            return await _appDbContext.Customers.ToListAsync();
+        }
+
+        public async Task<Customer> CreateCustomer(Customer newCustomer)
+        {
+            var customer = await _appDbContext.Customers.AddAsync(newCustomer);
+            await _appDbContext.SaveChangesAsync();
             return customer.Entity;
         }
 
-        public Customer EditCustomer(Customer customer)
-        {
-            //TODO If update function is ok, remove the commented parts....
-            //customerToUpdate.CustomerFirstName = customer.CustomerFirstName; 
-            //var customerToUpdate = GetCustomerById(customer.CustomerId);
-            //customerToUpdate.CustomerLastName = customer.CustomerLastName;
-            //customerToUpdate.Address = customer.Address;
-            //customerToUpdate.CustomerEmail = customer.CustomerEmail;
-            //customerToUpdate.City = customer.City;
-            //customerToUpdate.Phone = customer.Phone;
-            //customerToUpdate.ZipCode = customer.ZipCode;
+        public async Task<Customer> EditCustomer(Customer customer)
+        {            
             _appDbContext.Update(customer);
-            
-            _appDbContext.SaveChanges();
-            //return customerToUpdate;
+            await _appDbContext.SaveChangesAsync();
             return customer;
         }
 
-        public IEnumerable<BookLoan> GetBookLoans(Customer customer)
+        public async Task<IEnumerable<BookLoan>> GetBookLoans(Customer customer)
         {
-            var bookLoans = _appDbContext.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId).BookLoans;
+            var bookLoans = (await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customer.CustomerId)).BookLoans;
             return bookLoans;
         }
 
-        public Customer GetCustomerById(int id)
+        public async Task<Customer> GetCustomerById(int id)
         {
-            return _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(c => c.CustomerId == id);
+            return await _appDbContext.Customers.Include(c => c.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefaultAsync(c => c.CustomerId == id);
         }
 
-        public Customer GetCustomerByUserId(string userId)
+        public async Task<Customer> GetCustomerByUserId(string userId)
 
         {
-            var user = _appDbContext.Users.Include(c => c.Customer).FirstOrDefault(u => u.Id == userId);
+            var user = await _appDbContext.Users.Include(c => c.Customer).FirstOrDefaultAsync(u => u.Id == userId);
 
             return user.Customer;
         }
 
-        public Customer GetCustomerByUserIdIncludeBookLoan(string userId)
+        public async Task<Customer> GetCustomerByUserIdIncludeBookLoan(string userId)
 
         {
-            var user = _appDbContext.Users.Include(c => c.Customer).ThenInclude(b => b.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefault(u => u.Id == userId);
+            var user = await _appDbContext.Users.Include(c => c.Customer).ThenInclude(b => b.BookLoans).ThenInclude(b => b.BookItem).ThenInclude(b => b.Book).FirstOrDefaultAsync(u => u.Id == userId);
 
             return user.Customer;
         }
 
-        public Customer RemoveCustomer(Customer customer)
+        public async Task<Customer> RemoveCustomer(Customer customer)
         {
-            var toRemove = _appDbContext.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
+            var toRemove = await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customer.CustomerId);
             _appDbContext.Customers.Remove(toRemove);
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
             return toRemove;
         }
     }

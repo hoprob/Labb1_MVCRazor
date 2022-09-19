@@ -18,47 +18,47 @@ namespace Labb1_MVCRazor.Models
             return await _appDbcontext.Books.ToListAsync(); 
         }
 
-        public Book AddBook(Book newBook)
+        public async Task<Book> AddBook(Book newBook)
         {
-            _appDbcontext.Add(newBook);
-            _appDbcontext.SaveChanges();
+            await _appDbcontext.Books.AddAsync(newBook);
+            await _appDbcontext.SaveChangesAsync();
             return newBook;
         }
 
-        public BookItem AddBookItem(BookItem bookItem)
+        public async Task<BookItem> AddBookItem(BookItem bookItem)
         {
-            _appDbcontext.BookItems.Add(bookItem);
-            _appDbcontext.SaveChanges();
+            await _appDbcontext.BookItems.AddAsync(bookItem);
+            await _appDbcontext.SaveChangesAsync();
             return bookItem;
         }
 
-        public Book EditBook(Book book)
+        public async Task<Book> EditBook(Book book)
         {
             _appDbcontext.Books.Update(book);
-            _appDbcontext.SaveChanges();
+            await _appDbcontext.SaveChangesAsync();
             return book;
         }
 
-        public Book GetBookById(int id)
+        public async Task<Book> GetBookById(int id)
         {
-            return _appDbcontext.Books.Include(b => b.BookItems).ThenInclude(b => b.BookLoans).ThenInclude(c => c.Customer).FirstOrDefault(b => b.BookId == id); //TODO Can I split this up?
+            return await _appDbcontext.Books.Include(b => b.BookItems).ThenInclude(b => b.BookLoans).ThenInclude(c => c.Customer).FirstOrDefaultAsync(b => b.BookId == id); //TODO Can I split this up?
         }
 
        
-        public Book GetBookByIsbn(string ISBN)
+        public async Task<Book> GetBookByIsbn(string ISBN)
         {
-            return _appDbcontext.Books.FirstOrDefault(b => b.ISBN == ISBN);
+            return await _appDbcontext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
         }
 
-        public IEnumerable<BookItem> GetAvailableBooksItemsByISBN(string ISBN)
+        public async Task<IEnumerable<BookItem>> GetAvailableBooksItemsByISBN(string ISBN)
         {
-            var books = _appDbcontext.BookItems.Include(l => l.BookLoans).Where(b => b.Book.ISBN == ISBN);
+            var books = await _appDbcontext.BookItems.Include(l => l.BookLoans).Where(b => b.Book.ISBN == ISBN).ToListAsync();
             List<BookItem> availableBooks = new List<BookItem>();
             foreach (BookItem book in books)
             {
                 if (book.BookLoans.Count > 0)
                 {
-                    var orderedLoans = book.BookLoans.OrderByDescending(d => d.LoanDate).ToList();
+                    var orderedLoans = book.BookLoans.OrderByDescending(d => d.LoanDate).ToList(); ;
                     if (orderedLoans[0].ReturnDate > DateTime.Parse("0001-01-01"))
                         availableBooks.Add(book);
                 }
@@ -68,24 +68,24 @@ namespace Labb1_MVCRazor.Models
             return availableBooks;
         }
 
-        public Book RemoveBook(Book book)
+        public async Task<Book> RemoveBook(Book book)
         {
             if (book.BookItems.Count > 0)
             {
                 foreach(BookItem bookItem in book.BookItems.ToList()) //TODO the bookLoans will crash?
                 {
-                    RemoveBookItem(bookItem.BookItemId);
+                    await RemoveBookItem(bookItem.BookItemId);
                 }
             }
             _appDbcontext.Books.Remove(book);
-            _appDbcontext.SaveChanges();
+            await _appDbcontext.SaveChangesAsync();
             return book;
         }
-        public BookItem RemoveBookItem(int bookItemId)
+        public async Task<BookItem> RemoveBookItem(int bookItemId)
         {
-            var toRemove = _appDbcontext.BookItems.FirstOrDefault(b => b.BookItemId == bookItemId);
+            var toRemove = await _appDbcontext.BookItems.FirstOrDefaultAsync(b => b.BookItemId == bookItemId);
             _appDbcontext.BookItems.Remove(toRemove);
-            _appDbcontext.SaveChanges();
+            await _appDbcontext.SaveChangesAsync();
             return toRemove;
         }
     }

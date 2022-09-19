@@ -22,30 +22,30 @@ namespace Labb1_MVCRazor.Controllers
         }
 
         [Authorize]
-        public IActionResult NewBookLoan(string bookISBN)
+        public async Task<IActionResult> NewBookLoan(string bookISBN)
         {
-            var book = _books.GetBookByIsbn(bookISBN);
+            var book = await _books.GetBookByIsbn(bookISBN);
             return View(book);
         }
 
         [HttpPost]
-        public IActionResult NewBookLoan(string bookISBN, string userId)
+        public async Task<IActionResult> NewBookLoan(string bookISBN, string userId)
         {
-            var booksAvailable = _books.GetAvailableBooksItemsByISBN(bookISBN).ToList();
-            var customer = _customers.GetCustomerByUserId(userId);
+            var booksAvailable = (await _books.GetAvailableBooksItemsByISBN(bookISBN)).ToList();
+            var customer = await _customers.GetCustomerByUserId(userId);
             if (booksAvailable.Count() > 0)
             {
-                _bookLoans.AddBookLoan(new BookLoan { BookItemId = booksAvailable[0].BookItemId, CustomerId = customer.CustomerId, LoanDate = DateTime.Now, DueDate = DateTime.Now.AddDays(30) });
+                await _bookLoans.AddBookLoan(new BookLoan { BookItemId = booksAvailable[0].BookItemId, CustomerId = customer.CustomerId, LoanDate = DateTime.Now, DueDate = DateTime.Now.AddDays(30) });
                 return RedirectToAction("ListBooks", "Book");
             }
             ViewData["NoBookAvailable"] = "Tyvärr finns det ej något ledigt exemplar av boken i Biblioteket. Var vänlig försök en annan dag!";
-            return View(_books.GetBookByIsbn(bookISBN)); //TODO Skicka med meddelande att boken ej är tillgänglig
+            return View(await _books.GetBookByIsbn(bookISBN)); //TODO Skicka med meddelande att boken ej är tillgänglig
         }
-        public IActionResult ReturnBook(int loanId, string userId)
+        public async Task<IActionResult> ReturnBook(int loanId, string userId)
         {
-            var loan = _bookLoans.GetBookLoanById(loanId);
+            var loan = await _bookLoans.GetBookLoanById(loanId);
             loan.ReturnDate = DateTime.Now;
-            _bookLoans.EditBookLoan(loan);
+            await _bookLoans.EditBookLoan(loan);
             return RedirectToAction("CustomerPage", "Customer", new { userId = userId });
         }
     }

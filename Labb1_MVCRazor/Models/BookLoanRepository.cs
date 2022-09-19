@@ -1,4 +1,6 @@
-﻿namespace Labb1_MVCRazor.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Labb1_MVCRazor.Models
 {
     public class BookLoanRepository : IBookLoanRepository
     {
@@ -9,24 +11,26 @@
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<BookLoan> GetAllBookLoans => _appDbContext.BookLoans;
-
-        public BookLoan AddBookLoan(BookLoan newBookLoan)
+        public async Task<IEnumerable<BookLoan>> GetAllBookLoans()
         {
-            _appDbContext.BookLoans.Add(newBookLoan);
-            _appDbContext.SaveChanges();
+            return await _appDbContext.BookLoans.ToListAsync();
+        } 
+        public async Task<BookLoan> AddBookLoan(BookLoan newBookLoan)
+        {
+            await _appDbContext.BookLoans.AddAsync(newBookLoan);
+            await _appDbContext.SaveChangesAsync();
             return newBookLoan;
         }
-        public BookLoan GetBookLoanById(int id)
+        public async Task<BookLoan> GetBookLoanById(int id)
         {
-            var bookLoan = _appDbContext.BookLoans.FirstOrDefault(b => b.BookLoanId == id);
+            var bookLoan = await _appDbContext.BookLoans.FirstOrDefaultAsync(b => b.BookLoanId == id);
             return bookLoan;
         }
 
-        public BookLoan EditBookLoan(BookLoan bookLoan)
+        public async Task<BookLoan> EditBookLoan(BookLoan bookLoan)
         {
             var updatedLoan = _appDbContext.BookLoans.Update(bookLoan).Entity;
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
             return updatedLoan;
         }
     }

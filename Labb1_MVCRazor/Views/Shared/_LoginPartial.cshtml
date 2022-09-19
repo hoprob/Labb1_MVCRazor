@@ -9,7 +9,7 @@
     {
         <li class="nav-item">
             <form id="manageForm" class="form-inline" asp-controller="Customer" asp-action="CustomerPage" asp-route-userId="@UserManager.GetUserId(User)">
-            <button id="manage" type="submit" class="nav-link btn btn-link text-dark" title="Manage"><i class="fa-solid fa-user me-sm-1"></i>@UserManager.GetUserFullName(UserManager.GetUserId(User))</button>
+            <button id="manage" type="submit" class="nav-link btn btn-link text-dark" title="Manage"><i class="fa-solid fa-user me-sm-1"></i>@await UserManager.GetUserFullName(UserManager.GetUserId(User))</button>
                 </form>
         </li>
         <li class="nav-item">
